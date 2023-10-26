@@ -1,6 +1,7 @@
 package ifsuldeminas.pas.bcc.KanbanSoftware.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class User {
     private int id;
@@ -12,4 +13,6 @@ public class User {
     private String email;
     private String passwordHash;
     private Sex sex;
+    private ArrayList<Integer> rolegroupIds;
+
 }
