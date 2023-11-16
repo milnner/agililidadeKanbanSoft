@@ -9,11 +9,11 @@ import java.util.ArrayList;
 @Entity(name = "user_chat_connections")
 public class UserChatConnection {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime creationDate;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private Integer userId;
+    private User userId;
 }

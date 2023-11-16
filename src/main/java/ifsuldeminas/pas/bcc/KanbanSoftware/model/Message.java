@@ -8,12 +8,12 @@ import java.time.LocalDateTime;
 @Entity(name = "messages")
 public class Message {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime creationDate;
     private String messageContent;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private Long userId;
+    private User userId;
 }
