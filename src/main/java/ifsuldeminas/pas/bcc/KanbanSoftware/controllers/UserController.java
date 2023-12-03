@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/user")
 public class UserController {
     private final UserService userService;
 
@@ -18,13 +19,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/user/create")
+    @GetMapping("/create")
     public String showCreateUserForm(Model model) {
         model.addAttribute("user", new User());
         return "createUser";
     }
 
-    @PostMapping("/user/create")
+    @PostMapping("/create")
     public ResponseEntity<String> createUser(@RequestBody User user) {
         try {
             user = userService.save(user);
@@ -39,7 +40,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/user/{email}")
+    @GetMapping("/{email}")
     public ResponseEntity<String> readUser(@PathVariable String email) {
         User user;
         try {
@@ -54,7 +55,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(user.toJson());
     }
 
-    @DeleteMapping("/user/{email}")
+    @DeleteMapping("/{email}")
     public ResponseEntity<String> deleteUser(@PathVariable String email) {
         try {
             userService.deleteByEmail(email);

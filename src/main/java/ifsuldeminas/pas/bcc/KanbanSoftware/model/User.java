@@ -31,7 +31,7 @@ public class User {
     private Sex sex;
 
     @ManyToMany(mappedBy = "users")
-    private Set<Rolegroup> rolegroupIds;
+    private Set<Rolegroup> rolegroups;
 
     public int getId() {
         return id;
@@ -106,11 +106,11 @@ public class User {
     }
 
     public Set<Rolegroup> getRolegroupIds() {
-        return rolegroupIds;
+        return rolegroups;
     }
 
-    public void setRolegroupIds(Set<Rolegroup> rolegroupIds) {
-        this.rolegroupIds = rolegroupIds;
+    public void setRolegroups(Set<Rolegroup> rolegroupIds) {
+        this.rolegroups = rolegroupIds;
     }
 
     @Override
@@ -169,14 +169,14 @@ public class User {
 
     // Converte rolegroupIds para JSON
     private String rolegroupIdsToJson() {
-        if (rolegroupIds == null || rolegroupIds.isEmpty()) {
+        if (rolegroups == null || rolegroups.isEmpty()) {
             return "[]";
         }
 
         StringBuilder rolegroupIdsBuilder = new StringBuilder("[");
         boolean first = true;
 
-        for (Rolegroup rolegroup : rolegroupIds) {
+        for (Rolegroup rolegroup : rolegroups) {
             if (!first) {
                 rolegroupIdsBuilder.append(",");
             }

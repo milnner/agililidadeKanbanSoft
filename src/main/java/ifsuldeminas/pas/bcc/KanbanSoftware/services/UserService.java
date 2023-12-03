@@ -17,17 +17,11 @@ public class UserService {
     }
 
     public User getUserByEmail(String email) throws UserNotFoundException, Exception {
-        try {
             Optional<User> opt = userRepository.findByEmail(email);
             if (!opt.isPresent()) {
                 throw new UserNotFoundException(email);
             }
-            User user = new User();
-            user = opt.get();
-            return user;
-        } catch (Exception e) {
-            throw e;
-        }
+            return opt.get();
     }
 
     public User save(User user) throws  org.springframework.dao.DataIntegrityViolationException, Exception {

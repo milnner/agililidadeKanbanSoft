@@ -17,7 +17,7 @@ import java.util.Set;
     private Set<User> users;
 
     @Enumerated(EnumType.STRING)
-    private KanbanPerms permition;
+    private KanbanPerms permission;
     @OneToMany(mappedBy = "rolegroup")
     private List<Board> boards;
     @OneToMany(mappedBy = "rolegroup")
@@ -28,6 +28,14 @@ import java.util.Set;
 
     public int getId() {
         return id;
+    }
+
+    public KanbanPerms getPermission() {
+        return permission;
+    }
+
+    public void setPermission(KanbanPerms permission) {
+        this.permission = permission;
     }
 
     public void setId(int id) {
@@ -99,5 +107,6 @@ import java.util.Set;
         result = 31 * result + (getCards() != null ? getCards().hashCode() : 0);
         return result;
     }
+
 }
 
