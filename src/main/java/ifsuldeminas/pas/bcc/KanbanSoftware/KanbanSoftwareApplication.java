@@ -25,7 +25,6 @@ public class KanbanSoftwareApplication {
 			for (String beanName : beanNames) {
 				System.out.println(beanName);
 			}
-
 		};
 	}
 

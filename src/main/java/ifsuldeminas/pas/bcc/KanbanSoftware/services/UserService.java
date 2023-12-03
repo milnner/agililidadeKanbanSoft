@@ -26,7 +26,7 @@ public class UserService {
 
     public User save(User user) throws  org.springframework.dao.DataIntegrityViolationException, Exception {
         user = userRepository.save(user);
-        String jsonUser = user.toJson();
+
         return user;
     }
 
