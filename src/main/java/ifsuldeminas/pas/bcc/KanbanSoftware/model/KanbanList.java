@@ -1,5 +1,7 @@
 package ifsuldeminas.pas.bcc.KanbanSoftware.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -70,5 +72,15 @@ public class KanbanList extends KanbanElement {
         result = 31 * result + (getBoard() != null ? getBoard().hashCode() : 0);
         result = 31 * result + (getRolegroup() != null ? getRolegroup().hashCode() : 0);
         return result;
+    }
+
+    public String toJson() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
