@@ -141,4 +141,43 @@ public class User {
         result = 31 * result + (getRolegroupIds() != null ? getRolegroupIds().hashCode() : 0);
         return result;
     }
+
+    public String toJson() {
+        StringBuilder jsonBuilder = new StringBuilder("{\n");
+
+        // Adiciona os campos ao JSON
+        jsonBuilder.append("\"id\":").append(id).append(",\n");
+        jsonBuilder.append("\"nickname\":\"").append(nickname).append("\",\n");
+        jsonBuilder.append("\"name\":\"").append(name).append("\",\n");
+        jsonBuilder.append("\"surname\":\"").append(surname).append("\",\n");
+        jsonBuilder.append("\"entryDate\":\"").append(entryDate).append("\",\n");
+        jsonBuilder.append("\"bournDate\":\"").append(bournDate).append("\",\n");
+        jsonBuilder.append("\"email\":\"").append(email).append("\",");
+        jsonBuilder.append("\"passwordHash\":\"").append(passwordHash).append("\",\n");
+        jsonBuilder.append("\"sex\":\"").append(sex).append("\",\n");
+        jsonBuilder.append("\"rolegroupIds\":").append(rolegroupIdsToJson()).append("\n}");
+
+        return jsonBuilder.toString();
+    }
+
+    // Converte rolegroupIds para JSON
+    private String rolegroupIdsToJson() {
+        if (rolegroupIds == null || rolegroupIds.isEmpty()) {
+            return "[]";
+        }
+
+        StringBuilder rolegroupIdsBuilder = new StringBuilder("[");
+        boolean first = true;
+
+        for (Rolegroup rolegroup : rolegroupIds) {
+            if (!first) {
+                rolegroupIdsBuilder.append(",");
+            }
+            rolegroupIdsBuilder.append("{\"id\":").append(rolegroup.getId()).append("}");
+            first = false;
+        }
+
+        rolegroupIdsBuilder.append("]");
+        return rolegroupIdsBuilder.toString();
+    }
 }
