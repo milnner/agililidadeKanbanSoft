@@ -1,5 +1,6 @@
 package ifsuldeminas.pas.bcc.KanbanSoftware.model;
 
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
 
 import java.time.LocalDateTime;
@@ -9,6 +10,9 @@ public abstract class KanbanElement {
     private String name;
     private String description;
     private LocalDateTime creationDate;
+
+    @ManyToOne
+    private User creator;
 
     public String getName() {
         return name;

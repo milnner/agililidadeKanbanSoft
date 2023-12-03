@@ -17,6 +17,13 @@ public class User {
     private String surname;
     private LocalDateTime entryDate;
     private LocalDateTime bournDate;
+    @OneToMany(mappedBy = "creator")
+    private Set<Card> cards;
+    @OneToMany(mappedBy = "creator")
+    private Set<KanbanList>kanbanLists ;
+    @OneToMany(mappedBy = "creator")
+    private Set<Board> boards;
+
     @Column(unique = true)
     private String email;
     private String passwordHash;

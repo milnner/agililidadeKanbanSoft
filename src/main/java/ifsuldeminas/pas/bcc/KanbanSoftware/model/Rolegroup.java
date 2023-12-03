@@ -8,24 +8,23 @@ import java.util.Set;
 @Table(name = "rolegroups")
     @Entity(name = "rolegroups")
     public class Rolegroup {
-        @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        private int id;
-        private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+    private String name;
 
-        @ManyToMany
-        private Set<User> users;
+    @ManyToMany
+    private Set<User> users;
 
+    @Enumerated(EnumType.STRING)
+    private KanbanPerms permition;
+    @OneToMany(mappedBy = "rolegroup")
+    private List<Board> boards;
+    @OneToMany(mappedBy = "rolegroup")
+    private List<KanbanList> lists;
 
-        @OneToMany(mappedBy = "rolegroup")
-        private List<Role> roles;
-        @OneToMany(mappedBy = "rolegroup")
-        private List<Board> boards;
-        @OneToMany(mappedBy = "rolegroup")
-        private List<KanbanList> lists;
-
-        @OneToMany(mappedBy = "rolegroup")
-        private List<Card> cards;
+    @OneToMany(mappedBy = "rolegroup")
+    private List<Card> cards;
 
     public int getId() {
         return id;
@@ -51,13 +50,6 @@ import java.util.Set;
         this.users = users;
     }
 
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
 
     public List<Board> getBoards() {
         return boards;
@@ -91,7 +83,6 @@ import java.util.Set;
         if (getId() != rolegroup.getId()) return false;
         if (getName() != null ? !getName().equals(rolegroup.getName()) : rolegroup.getName() != null) return false;
         if (getUsers() != null ? !getUsers().equals(rolegroup.getUsers()) : rolegroup.getUsers() != null) return false;
-        if (getRoles() != null ? !getRoles().equals(rolegroup.getRoles()) : rolegroup.getRoles() != null) return false;
         if (getBoards() != null ? !getBoards().equals(rolegroup.getBoards()) : rolegroup.getBoards() != null)
             return false;
         if (getLists() != null ? !getLists().equals(rolegroup.getLists()) : rolegroup.getLists() != null) return false;
@@ -103,7 +94,6 @@ import java.util.Set;
         int result = getId();
         result = 31 * result + (getName() != null ? getName().hashCode() : 0);
         result = 31 * result + (getUsers() != null ? getUsers().hashCode() : 0);
-        result = 31 * result + (getRoles() != null ? getRoles().hashCode() : 0);
         result = 31 * result + (getBoards() != null ? getBoards().hashCode() : 0);
         result = 31 * result + (getLists() != null ? getLists().hashCode() : 0);
         result = 31 * result + (getCards() != null ? getCards().hashCode() : 0);
