@@ -33,7 +33,7 @@ public class UserService {
     public void deleteByEmail(String email) throws UserNotFoundException {
 
         Optional<User> opt = userRepository.findByEmail(email);
-        if (opt.isPresent()) {
+        if (!opt.isPresent()) {
             throw new UserNotFoundException(email);
         }
         userRepository.deleteByEmail(email);
