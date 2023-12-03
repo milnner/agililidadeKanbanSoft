@@ -9,6 +9,8 @@ import java.util.List;
 public class Board extends KanbanElement {
     @Id
     private int id;
-    @OneToMany(mappedBy = "list")
+    @OneToMany(mappedBy = "board")
     private List<KanbanList> lists;
+    @ManyToOne
+    private Rolegroup rolegroup;
 }

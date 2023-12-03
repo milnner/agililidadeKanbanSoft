@@ -1,9 +1,6 @@
 package ifsuldeminas.pas.bcc.KanbanSoftware.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -12,6 +9,11 @@ import java.util.List;
 public class KanbanList extends KanbanElement {
     @Id
     private int id;
-    @ManyToMany(mappedBy = "card")
+    @OneToMany(mappedBy = "list")
     private List<Card> cards;
+    @ManyToOne
+    private Board board;
+
+    @ManyToOne
+    private Rolegroup rolegroup;
 }

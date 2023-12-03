@@ -1,9 +1,11 @@
 package ifsuldeminas.pas.bcc.KanbanSoftware.model;
 
 import jakarta.persistence.*;
-import java.util.List;
 
-    @Table(name = "rolegroups")
+import java.util.List;
+import java.util.Set;
+
+@Table(name = "rolegroups")
     @Entity(name = "rolegroups")
     public class Rolegroup {
         @Id
@@ -12,23 +14,19 @@ import java.util.List;
         private String name;
 
         @ManyToMany
-        @JoinTable(
-                name = "user_role_group",
-                joinColumns = @JoinColumn(name = "role_group_id"),
-                inverseJoinColumns = @JoinColumn(name = "user_id")
-        )
-        private List<User> users;
+        private Set<User> users;
 
 
         @OneToMany(mappedBy = "rolegroup")
         private List<Role> roles;
 
-        @ManyToMany(mappedBy = "rolegroups")
+        @OneToMany(mappedBy = "rolegroup")
         private List<Board> boards;
-        @ManyToMany(mappedBy = "rolegroups")
+        @OneToMany(mappedBy = "rolegroup")
         private List<KanbanList> lists;
 
-        @ManyToMany(mappedBy = "rolegroups")
+        @OneToMany(mappedBy = "rolegroup")
         private List<Card> cards;
+
     }
 

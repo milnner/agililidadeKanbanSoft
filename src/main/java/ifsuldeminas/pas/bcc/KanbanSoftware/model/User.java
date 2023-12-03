@@ -3,7 +3,7 @@ package ifsuldeminas.pas.bcc.KanbanSoftware.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.Set;
 
 @Table(name = "users")
 @Entity(name = "users")
@@ -22,5 +22,7 @@ public class User {
     private String passwordHash;
     @Enumerated(EnumType.STRING)
     private Sex sex;
-    private ArrayList<Integer> rolegroupIds;
+
+    @ManyToMany(mappedBy = "users")
+    private Set<Rolegroup> rolegroupIds;
 }

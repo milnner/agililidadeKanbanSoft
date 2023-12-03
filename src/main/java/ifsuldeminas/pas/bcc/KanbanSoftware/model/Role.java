@@ -1,6 +1,6 @@
 package ifsuldeminas.pas.bcc.KanbanSoftware.model;
+
 import jakarta.persistence.*;
-import java.util.List;
 
 
 @Table(name = "roles")
@@ -9,5 +9,8 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @ManyToOne
+    private  Rolegroup rolegroup;
+    @Enumerated(EnumType.STRING)
     private KanbanPerms permission;
 }
