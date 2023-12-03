@@ -3,13 +3,18 @@ package ifsuldeminas.pas.bcc.KanbanSoftware.services;
 import ifsuldeminas.pas.bcc.KanbanSoftware.exceptions.UserNotFoundException;
 import ifsuldeminas.pas.bcc.KanbanSoftware.model.User;
 import ifsuldeminas.pas.bcc.KanbanSoftware.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
+@Service
 public class UserService {
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository){}
+    @Autowired
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public User getUserByEmail(String email) throws UserNotFoundException, Exception {
         try {

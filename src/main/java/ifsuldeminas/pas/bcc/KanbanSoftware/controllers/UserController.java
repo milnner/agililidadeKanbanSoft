@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/user/create")
     public String showCreateUserForm(Model model) {
@@ -26,22 +30,28 @@ public class UserController {
             user = userService.save(user);
             return ResponseEntity.status(HttpStatus.CREATED).body(user.toJson());
         } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            System.out.println(e);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         } catch (Exception e) {
+            System.out.println(e);
+
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("");
         }
     }
 
     @GetMapping("/user/{email}")
     public ResponseEntity<String> readUser(@PathVariable String email) {
+        User user;
         try {
-            userService.getUserByEmail(email);
+            user = userService.getUserByEmail(email);
         } catch (UserNotFoundException e) {
+            System.out.println(e);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("");
         } catch (Exception e) {
+            System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("");
         }
-        return ResponseEntity.status(HttpStatus.OK).body("");
+        return ResponseEntity.status(HttpStatus.OK).body(user.toJson());
     }
 
     @DeleteMapping("/user/{email}")
@@ -49,8 +59,12 @@ public class UserController {
         try {
             userService.deleteByEmail(email);
         } catch (UserNotFoundException e) {
+            System.out.println(e);
+
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("");
         } catch (Exception e) {
+            System.out.println(e);
+
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("");
         }
         return ResponseEntity.status(HttpStatus.OK).body("");
@@ -61,7 +75,7 @@ public class UserController {
         try {
             User updated = userService.updateUser(email, updatedUser);
             String jsonUser = updated.toJson();
-            return ResponseEntity.ok(jsonUser);
+            return ResponseEntity.status(HttpStatus.OK).body("");
         } catch (UserNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("");
         } catch (Exception e) {
