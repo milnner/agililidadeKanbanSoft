@@ -8,6 +8,7 @@ import java.util.List;
 @Entity(name = "kanban_list")
 public class KanbanList extends KanbanElement {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @OneToMany(mappedBy = "list")
     private List<Card> cards;

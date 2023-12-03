@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 @Entity(name = "card")
 public class Card extends KanbanElement {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @ManyToOne
     private KanbanList list;

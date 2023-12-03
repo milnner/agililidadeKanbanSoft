@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 @Entity(name = "roles")
 public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @ManyToOne
     private  Rolegroup rolegroup;
