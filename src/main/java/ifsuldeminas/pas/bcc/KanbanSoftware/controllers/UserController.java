@@ -3,6 +3,7 @@ package ifsuldeminas.pas.bcc.KanbanSoftware.controllers;
 import ifsuldeminas.pas.bcc.KanbanSoftware.exceptions.UserNotFoundException;
 import ifsuldeminas.pas.bcc.KanbanSoftware.model.User;
 import ifsuldeminas.pas.bcc.KanbanSoftware.services.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,6 +56,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(user.toJson());
     }
 
+    @Transactional
     @DeleteMapping("/{email}")
     public ResponseEntity<String> deleteUser(@PathVariable String email) {
         try {
