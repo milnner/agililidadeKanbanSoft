@@ -1,12 +1,17 @@
 package ifsuldeminas.pas.bcc.KanbanSoftware.services;
 
 import ifsuldeminas.pas.bcc.KanbanSoftware.exceptions.KanbanElementNotFoundException;
+import ifsuldeminas.pas.bcc.KanbanSoftware.exceptions.UnauthorizedUserException;
 import ifsuldeminas.pas.bcc.KanbanSoftware.model.Board;
+import ifsuldeminas.pas.bcc.KanbanSoftware.model.Rolegroup;
+import ifsuldeminas.pas.bcc.KanbanSoftware.model.User;
 import ifsuldeminas.pas.bcc.KanbanSoftware.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.management.relation.Role;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class BoardService {
@@ -49,5 +54,30 @@ public class BoardService {
         } else {
             throw new KanbanElementNotFoundException(id);
         }
+    }
+
+    public Board updateBoard(int id, Board updatedBoard, User user) throws KanbanElementNotFoundException, UnauthorizedUserException {
+        Optional<Board> opt = boardRepository.findById(id);
+        if (opt.isEmpty()) {
+            throw new KanbanElementNotFoundException(id);
+
+        }
+        Board existingBoard = opt.get();
+
+        if (!hasPermission(user, existingBoard)) {
+            throw new UnauthorizedUserException(user.getId());
+        }
+
+        existingBoard.setName(updatedBoard.getName());
+        existingBoard.setDescription(updatedBoard.getDescription());
+        existingBoard.setLists(updatedBoard.getLists());
+        return boardRepository.save(existingBoard);
+    }
+
+    private boolean hasPermission(User user, Board board) {
+        Rolegroup boardRolegroup = board.getRolegroup();
+        Set<Rolegroup> userRolegroups = user.getRolegroup();
+
+        return userRolegroups.contains(boardRolegroup);
     }
 }
