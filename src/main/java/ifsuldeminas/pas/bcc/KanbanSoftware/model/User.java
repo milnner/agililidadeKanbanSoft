@@ -105,7 +105,7 @@ public class User {
         this.sex = sex;
     }
 
-    public Set<Rolegroup> getRolegroupIds() {
+    public Set<Rolegroup> getRolegroup() {
         return rolegroups;
     }
 
@@ -131,7 +131,7 @@ public class User {
         if (getPasswordHash() != null ? !getPasswordHash().equals(user.getPasswordHash()) : user.getPasswordHash() != null)
             return false;
         if (getSex() != user.getSex()) return false;
-        return getRolegroupIds() != null ? getRolegroupIds().equals(user.getRolegroupIds()) : user.getRolegroupIds() == null;
+        return getRolegroup() != null ? getRolegroup().equals(user.getRolegroup()) : user.getRolegroup() == null;
     }
 
     @Override
@@ -145,7 +145,7 @@ public class User {
         result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
         result = 31 * result + (getPasswordHash() != null ? getPasswordHash().hashCode() : 0);
         result = 31 * result + (getSex() != null ? getSex().hashCode() : 0);
-        result = 31 * result + (getRolegroupIds() != null ? getRolegroupIds().hashCode() : 0);
+        result = 31 * result + (getRolegroup() != null ? getRolegroup().hashCode() : 0);
         return result;
     }
 
