@@ -187,4 +187,21 @@ public class User {
         rolegroupIdsBuilder.append("]");
         return rolegroupIdsBuilder.toString();
     }
+
+    public User(String nickname, String name, String surname,
+                LocalDateTime entryDate, LocalDateTime bournDate,
+                String email, String passwordHash, Sex sex) {
+        this.nickname = nickname;
+        this.name = name;
+        this.surname = surname;
+        this.entryDate = entryDate;
+        this.bournDate = bournDate;
+        this.email = email;
+        this.passwordHash = passwordHash;
+        this.sex = sex;
+    }
+
+    public User() {
+
+    }
 }
